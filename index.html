@@ -4,24 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexus Web Solutions - Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@500;800;900&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* --- GLOBAL RESET & THEME CONFIG --- */
+        /* --- HIGH-TECH CYBERPUNK VARIABLE CORE --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
             background-color: #0a0b10;
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
             color: #e0e0e6;
             display: flex;
             min-height: 100vh;
             overflow-x: hidden;
+            font-family: 'Space Grotesk', sans-serif;
         }
 
-        /* --- SPLASH SCREEN ANIMATION (Index Only) --- */
+        /* --- SPLASH SCREEN ANIMATION --- */
         #splash-screen {
             position: fixed;
             top: 0;
@@ -34,189 +41,219 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            animation: fadeOut 0.5s ease-in-out 2.5s forwards;
+            animation: fadeOut 0.5s cubic-bezier(0.77, 0, 0.175, 1) 2.5s forwards;
             pointer-events: none;
         }
 
         .spinner {
-            width: 80px;
-            height: 80px;
-            border: 4px solid rgba(157, 78, 221, 0.2);
+            width: 90px;
+            height: 90px;
+            border: 2px solid rgba(157, 78, 221, 0.1);
             border-left-color: #00f0ff;
             border-right-color: #9d4edd;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
-            margin-bottom: 20px;
+            animation: spin 0.8s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2), inset 0 0 15px rgba(157, 78, 221, 0.2);
+            margin-bottom: 25px;
         }
 
         .splash-text {
             color: #00f0ff;
-            font-family: monospace;
-            font-size: 1.2rem;
-            letter-spacing: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            text-shadow: 0 0 10px #00f0ff;
-            animation: pulse 1.5s infinite alternate;
+            text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
+            animation: pulse 1s infinite alternate;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
         @keyframes pulse {
-            from { opacity: 0.6; }
+            from { opacity: 0.4; }
             to { opacity: 1; }
         }
         @keyframes fadeOut {
             to { opacity: 0; visibility: hidden; }
         }
 
-        /* --- DASHBOARD SIDEBAR --- */
+        /* --- MODERN SIDEBAR --- */
         .sidebar {
-            width: 280px;
-            background-color: #121420;
-            border-right: 2px solid #9d4edd;
+            width: 300px;
+            background: linear-gradient(180deg, #121420 0%, #0d0f18 100%);
+            border-right: 1px solid rgba(157, 78, 221, 0.3);
             position: fixed;
             top: 0;
             bottom: 0;
             left: 0;
             display: flex;
             flex-direction: column;
-            padding: 30px 20px;
-            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.5);
+            padding: 40px 24px;
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.6);
             z-index: 100;
         }
 
         .logo {
-            font-size: 2rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
             font-weight: 900;
-            color: #00f0ff;
-            text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
-            letter-spacing: 3px;
-            margin-bottom: 50px;
-            padding-left: 10px;
-            border-left: 4px solid #9d4edd;
+            color: #fff;
+            letter-spacing: 4px;
+            margin-bottom: 60px;
+            padding-left: 14px;
+            position: relative;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 15%;
+            height: 70%;
+            width: 4px;
+            background: #00f0ff;
+            box-shadow: 0 0 10px #00f0ff;
         }
 
         .nav-links {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
         .nav-links a {
-            display: block;
-            color: #a0a5b5;
+            display: flex;
+            align-items: center;
+            color: #8a8f9f;
             text-decoration: none;
-            padding: 14px 18px;
-            border-radius: 8px;
+            padding: 16px 20px;
+            border-radius: 4px;
             font-weight: 600;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            transition: all 0.25s ease;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.02);
         }
 
         .nav-links a:hover {
             color: #00f0ff;
-            background: rgba(0, 240, 255, 0.05);
+            background: rgba(0, 240, 255, 0.03);
             border-color: rgba(0, 240, 255, 0.2);
-            padding-left: 25px;
+            box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.05);
+            transform: translateX(4px);
         }
 
         .nav-links a.active {
-            color: #0a0b10;
-            background: linear-gradient(90deg, #00f0ff, #9d4edd);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
-            border: none;
+            color: #00f0ff;
+            background: rgba(157, 78, 221, 0.1);
+            border: 1px solid #9d4edd;
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.15), inset 0 0 8px rgba(157, 78, 221, 0.1);
+            text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
         }
 
-        /* --- MAIN CONTENT LAYOUT --- */
+        /* --- MAIN CONTENT AREA --- */
         .main-content {
-            margin-left: 280px;
+            margin-left: 300px;
             flex-grow: 1;
-            padding: 50px;
-            max-width: 1200px;
+            padding: 60px 80px;
+            max-width: 1400px;
         }
 
         h1.tech-headline {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 25px;
-            background: linear-gradient(45deg, #fff, #a0a5b5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            color: #fff;
         }
 
         h1.tech-headline span {
             background: linear-gradient(90deg, #00f0ff, #9d4edd);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+            position: relative;
         }
 
         .hero-desc {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             line-height: 1.8;
             color: #a0a5b5;
-            margin-bottom: 40px;
-            max-width: 800px;
+            margin-bottom: 50px;
+            max-width: 850px;
         }
 
-        /* --- UI CARDS & GRIDS --- */
+        /* --- MODERN HI-TECH CARDS --- */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 30px;
-            margin-top: 20px;
         }
 
         .card {
-            background-color: #121420;
-            border: 1px solid rgba(157, 78, 221, 0.2);
-            border-radius: 12px;
-            padding: 30px;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(135deg, #121420 0%, #0e101a 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            padding: 40px;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #00f0ff, #9d4edd);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            border-color: #00f0ff;
-            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.1);
+            border-color: rgba(0, 240, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 240, 255, 0.03);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
         }
 
         .card-title {
-            font-size: 1.5rem;
-            color: #00f0ff;
-            margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .card-text {
-            color: #a0a5b5;
-            line-height: 1.6;
+            color: #9499a8;
+            line-height: 1.7;
+            font-size: 1rem;
         }
 
-        /* --- UTILITY BUTTONS --- */
-        .btn {
-            display: inline-block;
-            background: transparent;
+        .tech-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
             color: #00f0ff;
-            border: 2px solid #00f0ff;
-            padding: 12px 28px;
-            font-weight: 700;
-            border-radius: 6px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            margin-top: 15px;
-        }
-
-        .btn:hover {
-            background: #00f0ff;
-            color: #0a0b10;
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+            background: rgba(0, 240, 255, 0.05);
+            padding: 4px 10px;
+            border-radius: 2px;
+            display: inline-block;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 240, 255, 0.1);
         }
     </style>
 </head>
@@ -224,35 +261,37 @@
 
     <div id="splash-screen">
         <div class="spinner"></div>
-        <div class="splash-text">Initializing Nexus...</div>
+        <div class="splash-text">SYS.INIT // NEXUS</div>
     </div>
 
     <nav class="sidebar">
         <div class="logo">NEXUS</div>
         <ul class="nav-links">
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="extensions.html">Chrome Extensions</a></li>
-            <li><a href="websites.html">Custom Websites</a></li>
-            <li><a href="hard-drives.html">Coded Hard Drives</a></li>
-            <li><a href="donate.html">Donate</a></li>
+            <li><a href="index.html" class="active">// HOME</a></li>
+            <li><a href="extensions.html">// CHROME EXTENSIONS</a></li>
+            <li><a href="websites.html">// CUSTOM WEBSITES</a></li>
+            <li><a href="hard-drives.html">// CODED DRIVES</a></li>
+            <li><a href="donate.html">// DONATE</a></li>
         </ul>
     </nav>
 
     <main class="main-content">
-        <h1 class="tech-headline">Architecting the Next Generation of <span>Digital Efficiency</span></h1>
+        <h1 class="tech-headline">Architecting Next-Gen <span>Digital Core systems</span></h1>
         
         <p class="hero-desc">
-            Welcome to Nexus Web Solutions. We build high-performance, edge-case optimized digital systems tailored for developers, creators, and power users. From ultra-fast automation scripts to bespoke web architectures, our systems resolve workflow bottlenecks instantly.
+            Welcome to Nexus Web Solutions. We build high-performance, edge-case optimized digital environments tailored for developers, creators, and power users. From ultra-fast automation scripts to bespoke web architectures, our systems resolve workflow bottlenecks instantly.
         </p>
 
         <div class="grid-container">
             <div class="card">
-                <h3 class="card-title">Our Core Mission</h3>
+                <div class="tech-tag">MISSION_STATEMENT //</div>
+                <h3 class="card-title">Max Productivity</h3>
                 <p class="card-text">
                     At Nexus, our engineering philosophy revolves around a singular objective: <strong>maximizing user productivity</strong>. We believe technology should work aggressively for you, stripping away redundant actions and offering automated paths to critical data execution.
                 </p>
             </div>
             <div class="card">
+                <div class="tech-tag">ARCH_METRICS //</div>
                 <h3 class="card-title">Custom Tech Solutions</h3>
                 <p class="card-text">
                     Every asset we craft utilizes isolated execution environments, lightweight architectures, and contemporary aesthetic frameworks. We reject slow structures to ensure your tools adapt instantly to operational demands.
