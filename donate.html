@@ -4,195 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexus Web Solutions - Donate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@600;900&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* --- GLOBAL RESET & THEME CONFIG --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background-color: #0a0b10;
-            color: #e0e0e6;
-            display: flex;
-            min-height: 100vh;
-            overflow-x: hidden;
+            background-color: #05060b;
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: #d1d5e3; display: flex; min-height: 100vh; overflow-x: hidden; font-family: 'Space Grotesk', sans-serif;
         }
 
-        /* --- DASHBOARD SIDEBAR --- */
+        body::before {
+            content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 99999; background-size: 100% 4px, 6px 100%; pointer-events: none;
+        }
+
         .sidebar {
-            width: 280px;
-            background-color: #121420;
-            border-right: 2px solid #9d4edd;
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            display: flex;
-            flex-direction: column;
-            padding: 30px 20px;
-            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.5);
-            z-index: 100;
+            width: 320px; background: #090a12; border-right: 1px solid rgba(0, 240, 255, 0.15);
+            position: fixed; top: 0; bottom: 0; left: 0; display: flex; flex-direction: column; padding: 45px 25px; z-index: 100;
         }
 
-        .logo {
-            font-size: 2rem;
-            font-weight: 900;
-            color: #00f0ff;
-            text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
-            letter-spacing: 3px;
-            margin-bottom: 50px;
-            padding-left: 10px;
-            border-left: 4px solid #9d4edd;
-        }
+        .logo { font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: 900; color: #fff; letter-spacing: 6px; margin-bottom: 50px; display: flex; align-items: center; gap: 10px; }
+        .logo::before { content: '◰'; color: #00f0ff; }
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
+        .nav-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
         .nav-links a {
-            display: block;
-            color: #a0a5b5;
-            text-decoration: none;
-            padding: 14px 18px;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
+            display: flex; align-items: center; color: #6c7282; text-decoration: none; padding: 15px 18px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; transition: all 0.2s ease; background: rgba(255, 255, 255, 0.01); border-left: 2px solid transparent;
         }
+        .nav-links a:hover { color: #00f0ff; background: rgba(0, 240, 255, 0.02); border-left-color: rgba(0, 240, 255, 0.4); transform: translateX(4px); }
+        .nav-links a.active { color: #00f0ff; background: rgba(0, 240, 255, 0.05); border-left: 2px solid #00f0ff; text-shadow: 0 0 8px rgba(0, 240, 255, 0.5); }
 
-        .nav-links a:hover {
-            color: #00f0ff;
-            background: rgba(0, 240, 255, 0.05);
-            border-color: rgba(0, 240, 255, 0.2);
-            padding-left: 25px;
-        }
-
-        .nav-links a.active {
-            color: #0a0b10;
-            background: linear-gradient(90deg, #00f0ff, #9d4edd);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
-            border: none;
-        }
-
-        /* --- MAIN CONTENT LAYOUT --- */
-        .main-content {
-            margin-left: 280px;
-            flex-grow: 1;
-            padding: 50px;
-            max-width: 1200px;
-        }
+        .main-content { margin-left: 320px; flex-grow: 1; padding: 70px 90px; max-width: 1500px; }
+        
+        .sys-status-bar { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #9d4edd; margin-bottom: 20px; letter-spacing: 2px; }
 
         h1.tech-headline {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 25px;
-            background: linear-gradient(45deg, #fff, #a0a5b5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-family: 'Orbitron', sans-serif; font-size: 4.5rem; font-weight: 900; line-height: 1.05; margin-bottom: 25px; text-transform: uppercase; color: #fff;
         }
+        h1.tech-headline span { background: linear-gradient(90deg, #00f0ff, #9d4edd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        h1.tech-headline span {
-            background: linear-gradient(90deg, #00f0ff, #9d4edd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
-        }
+        .hero-desc { font-size: 1.3rem; line-height: 1.8; color: #8c92a6; margin-bottom: 40px; max-width: 900px; }
 
-        .hero-desc {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: #a0a5b5;
-            margin-bottom: 40px;
-            max-width: 800px;
-        }
-
-        /* --- UI CARDS & GRIDS --- */
-        .card {
-            background-color: #121420;
-            border: 1px solid rgba(157, 78, 221, 0.2);
-            border-radius: 12px;
-            padding: 40px;
-            max-width: 700px;
-            margin-top: 20px;
-        }
+        .card { background: #0b0d17; border: 1px solid rgba(0, 240, 255, 0.08); padding: 50px; max-width: 750px; position: relative; }
+        .card::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+        .card::after { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+        .card::before, .card::after { content: ''; position: absolute; width: 10px; height: 10px; border-color: rgba(0, 240, 255, 0.3); border-style: solid; }
 
         .alert-message {
-            display: block;
-            text-align: center;
-            color: #00f0ff;
-            font-family: monospace;
-            font-size: 1.3rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
-            margin-bottom: 35px;
-            padding: 15px;
-            border: 1px dashed rgba(0, 240, 255, 0.3);
-            background: rgba(0, 240, 255, 0.02);
-            border-radius: 6px;
+            display: block; text-align: center; color: #00f0ff; font-family: 'JetBrains Mono', monospace; font-size: 1rem; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 45px; padding: 18px; border: 1px dashed rgba(0, 240, 255, 0.2); background: rgba(0, 240, 255, 0.01);
         }
 
-        /* --- NEON PROGRESS BAR --- */
-        .progress-container {
-            margin-top: 20px;
-        }
+        .progress-container { margin-top: 20px; }
+        .progress-labels { display: flex; justify-content: space-between; color: #6c7282; font-size: 0.8rem; margin-bottom: 12px; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; }
+        .progress-track { width: 100%; height: 12px; background-color: rgba(0, 0, 0, 0.5); border: 1px solid rgba(0, 240, 255, 0.15); padding: 2px; }
+        .progress-fill { height: 100%; width: 75%; background: linear-gradient(90deg, #9d4edd, #00f0ff); box-shadow: 0 0 15px rgba(0, 240, 255, 0.4); }
 
-        .progress-labels {
-            display: flex;
-            justify-content: space-between;
-            color: #a0a5b5;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            font-family: monospace;
-        }
-
-        .progress-track {
-            width: 100%;
-            height: 24px;
-            background-color: #0a0b10;
-            border: 1px solid #9d4edd;
-            border-radius: 12px;
-            overflow: hidden;
-            padding: 3px;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
-        }
-
-        .progress-fill {
-            height: 100%;
-            width: 75%;
-            background: linear-gradient(90deg, #9d4edd, #00f0ff);
-            border-radius: 8px;
-            box-shadow: 0 0 15px #00f0ff;
-            position: relative;
-        }
-
-        .manual-note {
-            margin-top: 30px;
-            color: #a0a5b5;
-            font-size: 0.95rem;
-            text-align: center;
-            line-height: 1.5;
-        }
-
-        .manual-note a {
-            color: #00f0ff;
-            text-decoration: none;
-            font-weight: bold;
-            transition: text-shadow 0.3s ease;
-        }
-
-        .manual-note a:hover {
-            text-shadow: 0 0 8px #00f0ff;
-        }
+        .manual-note { margin-top: 40px; color: #818696; font-size: 0.95rem; text-align: center; line-height: 1.6; border-top: 1px solid rgba(255, 255, 255, 0.04); padding-top: 30px; }
+        .manual-note a { color: #00f0ff; text-decoration: none; font-family: 'JetBrains Mono', monospace; transition: all 0.2s ease; }
+        .manual-note a:hover { text-shadow: 0 0 8px rgba(0, 240, 255, 0.5); color: #fff; }
     </style>
 </head>
 <body>
@@ -200,25 +74,26 @@
     <nav class="sidebar">
         <div class="logo">NEXUS</div>
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="extensions.html">Chrome Extensions</a></li>
-            <li><a href="websites.html">Custom Websites</a></li>
-            <li><a href="hard-drives.html">Coded Hard Drives</a></li>
-            <li><a href="donate.html" class="active">Donate</a></li>
+            <li><a href="index.html">01 // CORE_BASE</a></li>
+            <li><a href="extensions.html">02 // EXTENSIONS</a></li>
+            <li><a href="websites.html">03 // APP_ARCH</a></li>
+            <li><a href="hard-drives.html">04 // DATA_HARDWARE</a></li>
+            <li><a href="donate.html" class="active">05 // DONATE_CELL</a></li>
         </ul>
     </nav>
 
     <main class="main-content">
-        <h1 class="tech-headline">Fuel the <span>Open-Source Core</span></h1>
+        <div class="sys-status-bar">POOL_ALLOCATION // OPEN_SOURCE_CORE</div>
+        <h1 class="tech-headline">Fuel the <span>Core Engine</span></h1>
         <p class="hero-desc">Your financial support assists our team in covering cloud server hosting costs, running extensive code evaluation platforms, and keeping our base browser tooling frameworks entirely free for community deployment.</p>
 
         <div class="card">
-            <span class="alert-message">Donation System Coming Soon!</span>
+            <span class="alert-message">CRITICAL // TRANSACTIONS_OFFLINE</span>
             
             <div class="progress-container">
                 <div class="progress-labels">
-                    <span>SERVER FUNDING GOAL</span>
-                    <span style="color: #00f0ff;">75% COMPLETE</span>
+                    <span>GRID_SERVER_CORE_FUND</span>
+                    <span style="color: #00f0ff;">75% INDEXED</span>
                 </div>
                 <div class="progress-track">
                     <div class="progress-fill"></div>
@@ -226,8 +101,8 @@
             </div>
 
             <p class="manual-note">
-                Want to back our pipeline development before the payment network goes live? Reach out via 
-                <a href="mailto:Nexus.Web.Solutions@outlook.com?subject=Early%20Donation%20Inquiry">Nexus.Web.Solutions@outlook.com</a>.
+                Want to back our pipeline development before the automated gateway node goes live? Secure lines are open at: <br>
+                <a href="mailto:Nexus.Web.Solutions@outlook.com?subject=Early%20Donation%20Inquiry">Nexus.Web.Solutions@outlook.com</a>
             </p>
         </div>
     </main>
