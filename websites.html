@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Web Solutions - Custom Websites</title>
+    <style>
+        /* --- GLOBAL RESET & THEME CONFIG --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #0a0b10;
+            color: #e0e0e6;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- DASHBOARD SIDEBAR --- */
+        .sidebar {
+            width: 280px;
+            background-color: #121420;
+            border-right: 2px solid #9d4edd;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 30px 20px;
+            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #00f0ff;
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+            letter-spacing: 3px;
+            margin-bottom: 50px;
+            padding-left: 10px;
+            border-left: 4px solid #9d4edd;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            display: block;
+            color: #a0a5b5;
+            text-decoration: none;
+            padding: 14px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .nav-links a:hover {
+            color: #00f0ff;
+            background: rgba(0, 240, 255, 0.05);
+            border-color: rgba(0, 240, 255, 0.2);
+            padding-left: 25px;
+        }
+
+        .nav-links a.active {
+            color: #0a0b10;
+            background: linear-gradient(90deg, #00f0ff, #9d4edd);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+            border: none;
+        }
+
+        /* --- MAIN CONTENT LAYOUT --- */
+        .main-content {
+            margin-left: 280px;
+            flex-grow: 1;
+            padding: 50px;
+            max-width: 1200px;
+        }
+
+        h1.tech-headline {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, #fff, #a0a5b5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h1.tech-headline span {
+            background: linear-gradient(90deg, #00f0ff, #9d4edd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #a0a5b5;
+            margin-bottom: 40px;
+            max-width: 800px;
+        }
+
+        /* --- UI CARDS & GRIDS --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: #121420;
+            border: 1px solid rgba(157, 78, 221, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #00f0ff;
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            color: #00f0ff;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .tier-subtitle {
+            color: #9d4edd;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .feature-list li {
+            color: #a0a5b5;
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+            line-height: 1.4;
+        }
+
+        .feature-list li::before {
+            content: "▪";
+            position: absolute;
+            left: 0;
+            color: #9d4edd;
+            text-shadow: 0 0 5px #9d4edd;
+        }
+
+        /* --- UTILITY BUTTONS --- */
+        .btn {
+            display: block;
+            background: transparent;
+            color: #00f0ff;
+            border: 2px solid #00f0ff;
+            padding: 12px 28px;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: #00f0ff;
+            color: #0a0b10;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="logo">NEXUS</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="extensions.html">Chrome Extensions</a></li>
+            <li><a href="websites.html" class="active">Custom Websites</a></li>
+            <li><a href="hard-drives.html">Coded Hard Drives</a></li>
+            <li><a href="donate.html">Donate</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <h1 class="tech-headline">Bespoke Web <span>Architectures</span></h1>
+        <p class="hero-desc">We write clean, high-performance web platforms from scratch. No clunky engines or bloated plug-ins—just blazing-fast code engineered for perfect responsiveness.</p>
+
+        <div class="grid-container">
+            <div class="card">
+                <div>
+                    <h3 class="card-title">Interactive Portfolio</h3>
+                    <div class="tier-subtitle">Tier 01 // Baseline</div>
+                    <ul class="feature-list">
+                        <li>Ultra-light static HTML5/CSS3 assets</li>
+                        <li>High-refresh rate transitions & animations</li>
+                        <li>Embedded fluid UI component trees</li>
+                        <li>Perfect 100/100 Lighthouse performance indexing</li>
+                    </ul>
+                </div>
+                <a href="mailto:Nexus.Web.Solutions@outlook.com?subject=Quote%20Request:%20Interactive%20Portfolio" class="btn">Get a Quote</a>
+            </div>
+
+            <div class="card">
+                <div>
+                    <h3 class="card-title">Next-Gen E-Commerce</h3>
+                    <div class="tier-subtitle">Tier 02 // Standard</div>
+                    <ul class="feature-list">
+                        <li>Instant serverless cart calculations</li>
+                        <li>Stripe/Crypto payment core processing</li>
+                        <li>Asynchronous inventory state synchronization</li>
+                        <li>Secure vendor dashboard control panels</li>
+                    </ul>
+                </div>
+                <a href="mailto:Nexus.Web.Solutions@outlook.com?subject=Quote%20Request:%20Next-Gen%20E-Commerce" class="btn">Get a Quote</a>
+            </div>
+
+            <div class="card">
+                <div>
+                    <h3 class="card-title">Custom Web Application</h3>
+                    <div class="tier-subtitle">Tier 03 // Advanced</div>
+                    <ul class="feature-list">
+                        <li>Full-stack Node.js/PostgreSQL integration</li>
+                        <li>WebSocket channels for real-time interaction</li>
+                        <li>Custom cloud processing mechanics</li>
+                        <li>Ironclad client authentication setups</li>
+                    </ul>
+                </div>
+                <a href="mailto:Nexus.Web.Solutions@outlook.com?subject=Quote%20Request:%20Custom%20Web%20Application" class="btn">Get a Quote</a>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
