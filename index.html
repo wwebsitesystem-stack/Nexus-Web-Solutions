@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Web Solutions</title>
+    <style>
+        /* --- Reset & Core Variables --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        :root {
+            --bg-color: #0a0b10;
+            --sidebar-bg: #06070c;
+            --card-bg: #121420;
+            --neon-blue: #00f0ff;
+            --neon-purple: #9d4edd;
+            --text-main: #ffffff;
+            --text-muted: #8a8f98;
+            --border-glow: rgba(0, 240, 255, 0.2);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            height: 100vh;
+        }
+
+        /* --- Intro Splash Screen --- */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-color);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease, vertical-align 0.5s ease;
+        }
+
+        .splash-ring {
+            width: 80px;
+            height: 80px;
+            border: 4px solid transparent;
+            border-top: 4px solid var(--neon-blue);
+            border-bottom: 4px solid var(--neon-purple);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            filter: drop-shadow(0 0 10px var(--neon-blue));
+            margin-bottom: 20px;
+        }
+
+        .splash-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: var(--text-main);
+            text-shadow: 0 0 10px var(--neon-purple);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* --- App Layout --- */
+        .app-container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* --- Sidebar Navigation --- */
+        sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-glow);
+            display: flex;
+            flex-direction: column;
+            padding: 30px 20px;
+            flex-shrink: 0;
+            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .brand-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            margin-bottom: 40px;
+            text-align: center;
+            border-bottom: 2px solid var(--neon-purple);
+            padding-bottom: 15px;
+            text-shadow: 0 0 8px rgba(157, 78, 221, 0.6);
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            list-style: none;
+        }
+
+        .nav-item {
+            padding: 14px 20px;
+            border-radius: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .nav-item:hover {
+            color: var(--neon-blue);
+            background: rgba(0, 240, 255, 0.05);
+            border-left: 4px solid var(--neon-blue);
+            padding-left: 16px;
+        }
+
+        .nav-item.active {
+            color: var(--text-main);
+            background: linear-gradient(90deg, rgba(157, 78, 221, 0.2) 0%, rgba(0, 240, 255, 0.05) 100%);
+            border-left: 4px solid var(--neon-purple);
+            border-top: 1px solid rgba(157, 78, 221, 0.3);
+            border-bottom: 1px solid rgba(157, 78, 221, 0.3);
+            border-right: 1px solid rgba(157, 78, 221, 0.1);
+        }
+
+        /* --- Main Content Area --- */
+        main {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+            background: radial-gradient(circle at top right, rgba(157, 78, 221, 0.05), transparent 60%);
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- UI Components & Utilities --- */
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        /* Card Styling */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-blue);
+            box-shadow: 0 10px 25px rgba(0, 240, 255, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .card-price {
+            font-size: 1.5rem;
+            color: var(--neon-blue);
+            font-weight: 700;
+            margin: 15px 0;
+        }
+
+        /* Feature Lists */
+        .feature-list {
+            list-style: none;
+            margin: 15px 0 25px 0;
+        }
+
+        .feature-list li {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+            font-size: 0.95rem;
+        }
+
+        .feature-list li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--neon-purple);
+            font-weight: bold;
+        }
+
+        /* Buttons */
+        .btn {
+            background: transparent;
+            color: var(--text-main);
+            border: 2px solid var(--neon-purple);
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+
+        .btn:hover {
+            background: var(--neon-purple);
+            box-shadow: 0 0 15px var(--neon-purple);
+            transform: scale(1.02);
+        }
+
+        .btn-blue {
+            border-color: var(--neon-blue);
+        }
+
+        .btn-blue:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        /* Progress Bar Component */
+        .progress-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 30px 0;
+            max-width: 500px;
+        }
+
+        .progress-bar {
+            height: 16px;
+            width: 75%;
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-blue));
+            border-radius: 20px;
+            box-shadow: 0 0 12px var(--neon-blue);
+            position: relative;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+
+            sidebar {
+                width: 100%;
+                height: auto;
+                padding: 15px;
+                border-right: none;
+                border-bottom: 1px solid var(--border-glow);
+            }
+
+            .brand-title {
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+            }
+
+            .nav-menu {
+                flex-direction: row;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+
+            .nav-item {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+
+            .nav-item:hover {
+                border-left: none;
+                border-bottom: 2px solid var(--neon-blue);
+                padding-left: 12px;
+            }
+
+            .nav-item.active {
+                border-left: none;
+                border-bottom: 2px solid var(--neon-purple);
+                background: rgba(157, 78, 221, 0.1);
+            }
+
+            main {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="splash-screen">
+        <div class="splash-ring"></div>
+        <div class="splash-text">Initializing Nexus...</div>
+    </div>
+
+    <div class="app-container">
+        
+        <sidebar>
+            <div class="brand-title">NEXUS WEB SOLUTIONS</div>
+            <ul class="nav-menu">
+                <li class="nav-item active" data-target="home">Home</li>
+                <li class="nav-item" data-target="chrome-extensions">Chrome Extensions</li>
+                <li class="nav-item" data-target="custom-websites">Custom Websites</li>
+                <li class="nav-item" data-target="storage">Pre-Configured Storage</li>
+                <li class="nav-item" data-target="donate">Donate</li>
+            </ul>
+        </sidebar>
+
+        <main>
+            
+            <section id="home" class="content-section active">
+                <h1>Next-Gen Custom Tech Solutions</h1>
+                <p>Welcome to Nexus Web Solutions. We build high-performance software systems designed to optimize execution speeds, eliminate repetitive patterns, and scale digital environments seamlessly.</p>
+                <p>Our core mission is to maximize digital productivity. Whether through precision-engineered browser extensions, lightning-fast application layers, or robust storage environments, we construct the vital tools creators and developers need to dominate their workflows.</p>
+            </section>
+
+            <section id="chrome-extensions" class="content-section">
+                <h1>Browser Productivity Tools</h1>
+                <p>Lightweight, sandboxed micro-applications tailored to optimize tasks right inside your browser workspace.</p>
+                <div class="grid-layout">
+                    <div class="card">
+                        <div>
+                            <div class="card-title">Smart Organizer</div>
+                            <p>Intelligently sorts active workspace layouts, sessions, and multi-window environments into quick-access arrays.</p>
+                        </div>
+                        <div>
+                            <div class="card-price">$24.99</div>
+                            <button class="btn btn-blue">Buy Now</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-title">Automated Form Filler</div>
+                            <p>Speeds up regular, repetitive profile entry points using highly secure local-storage arrays.</p>
+                        </div>
+                        <div>
+                            <div class="card-price">$24.99</div>
+                            <button class="btn btn-blue">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="custom-websites" class="content-section">
+                <h1>Custom Web Architecture</h1>
+                <p>Tailored development architectural systems structured perfectly to fit your structural scale and layout operational goals.</p>
+                <div class="grid-layout">
+                    <div class="card">
+                        <div>
+                            <div class="card-title">Portfolio Suite</div>
+                            <p>Sleek visual layouts dedicated entirely to high-impact personal or product showcases.</p>
+                            <ul class="feature-list">
+                                <li>Fully Responsive Display Grid</li>
+                                <li>Optimized Asset Management</li>
+                                <li>Integrated Contact Channels</li>
+                            </ul>
+                        </div>
+                        <button class="btn">Get a Quote</button>
+                    </div>
+                    <div class="card" style="border-color: rgba(157, 78, 221, 0.4)">
+                        <div>
+                            <div class="card-title">E-Commerce Grid</div>
+                            <p>Robust dynamic structures engineered to convert visitors directly into recurring revenue assets.</p>
+                            <ul class="feature-list">
+                                <li>Secure Merchant Gateway Layers</li>
+                                <li>Inventory Datastore Modules</li>
+                                <li>Administrative Control Matrix</li>
+                            </ul>
+                        </div>
+                        <button class="btn" style="background: rgba(157, 78, 221, 0.1)">Get a Quote</button>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-title">Custom Web App</div>
+                            <p>Enterprise grade applications engineered to calculate and manage complex database operations smoothly.</p>
+                            <ul class="feature-list">
+                                <li>Real-time Data Sync Architecture</li>
+                                <li>Robust API Structural Matrix</li>
+                                <li>End-to-End Encryption Arrays</li>
+                            </ul>
+                        </div>
+                        <button class="btn">Get a Quote</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="storage" class="content-section">
+                <h1>Hardware Toolkit Storage Solutions</h1>
+                <p>Plug-and-play environments packed with local development packages, assets, and emergency restoration layers.</p>
+                <div class="grid-layout">
+                    <div class="card">
+                        <div>
+                            <div class="card-title">Developer Toolkit SSD</div>
+                            <p>Ultra-fast solid-state drive pre-configured with popular core runtime environments, design kits, and package libraries.</p>
+                        </div>
+                        <div>
+                            <button class="btn btn-blue" style="width: 100%;">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="card-title">Secure Automated Backup Drive</div>
+                            <p>Hardware disk systems configured with automated backup protocols to constantly isolate and protect project assets locally.</p>
+                        </div>
+                        <div>
+                            <button class="btn btn-blue" style="width: 100%;">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="donate" class="content-section">
+                <h1>Support The Network</h1>
+                <p>Contributions allow us to keep creating open-source productivity utilities, software dependencies, and educational toolkits freely accessible for developers globally.</p>
+                
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
+                </div>
+                <p style="font-size: 0.9rem; margin-top: -15px;">System Node Funding Progress: 75% Allocated</p>
+
+                <div class="card" style="max-width: 500px; text-align: center; border-style: dashed; border-color: var(--neon-purple);">
+                    <div class="card-title" style="color: var(--neon-purple); font-weight: bold; letter-spacing: 1px;">
+                        Donation System Coming Soon!
+                    </div>
+                    <p style="margin-bottom: 0; font-size: 0.95rem;">Gateway processing modules are currently being integrated. Check back during the next system update cycle.</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        // --- Intro Splash Screen Controller ---
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 500); // Wait for the fade animation to complete
+            }, 2500); // Keep display visible for exactly 2.5 seconds
+        });
+
+        // --- Single Page Application (SPA) Tab Logic ---
+        const menuItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('.content-section');
+
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Remove active classes from all menu items
+                menuItems.forEach(nav => nav.classList.remove('active'));
+                
+                // Add active class to clicked item
+                item.classList.add('active');
+
+                // Get target section id from data attribute
+                const targetId = item.getAttribute('data-target');
+
+                // Switch visible content section smoothly
+                sections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
